@@ -7,6 +7,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/behaviors.h>
 
 
 #define AS(keycode) &as LS(keycode) keycode
@@ -25,53 +26,100 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+        mt: mod_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&kp>;
+            display-name = "Mod-Tap";
+        };
+        lt: layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&kp>;
+            display-name = "Layer-Tap";
+        };
     };
         keymap {
                 compatible = "zmk,keymap";
 
                 default_layer {
 // -----------------------------------------------------------------------------------------
-// |  Q  |  W  |  E  |  R  |  T  |     |  Y  |  U   |  I   |  O   | P |
-// |  A  |  S  |  D  |  F  |  G  |     |  H  |  J   |  K   |  L   | ' | 
-// |  Z  |  X  |  C  |  V  |  B  |     |  N  |  M   | CTRL | META | . |
-//             | GUI | LWR | SPC |     | ENT | RSE  | BSPC |
+// |  Q  |  D  |  R  |  W  |  B  |     |  J  |  F   |  U   |  P   | ' |
+// |  A  | LALT S | LSHIFT H | LCTRL T |  G  |     |  Y  | RCTRL N | RSHIFT E | RALT O | I | 
+// |  Z  |  X  |  M  |  C  |  V  |     |  K  |  L   | ,    | .    | / |
+//      | LYR3 | BSPC LYR4 | TAB |     | ENT | SPACE LYR2 | LYR1 |
                         display-name = "Base";
                         bindings = <
    AS(Q) AS(D) AS(R) AS(W) AS(B)     AS(J)   AS(F)  AS(U)     AS(P)     AS(SQT)
-   AS(A) AS(S) AS(H) AS(T) AS(G)     AS(Y)   AS(N)  AS(E)     AS(O)     AS(I)
+   AS(A) &mt LALT S &mt LSHIFT H &mt LCTRL T AS(G)     AS(Y)   &mt RCTRL N  &mt RSHIFT E   &mt RALT O     AS(I)
    AS(Z) AS(X) AS(M) AS(C) AS(V)     AS(K)   AS(L)  AS(COMMA) AS(DOT)   AS(FSLH)
-        &mo 2 &kp BSPC &kp TAB     AS(RET) &kp SPACE &mo 1
+        &mo 4 &lt 3 BSPC &kp TAB     AS(RET) &lt 2 SPACE &mo 1
                         >;
                 };
 
-                lower_layer {
+                num_layer {
 // -----------------------------------------------------------------------------------------
-// | !     |  @  |  #  |  $  |  %  |     |  ^  |  &  |  *  |  (  |  )  |
-// | BT1   | BT2 | BT3 | BT4 | BT5 |     | LFT | DWN |  UP | RGT |     |
-// | BTCLR |     |     |     |     |     |     |     |     |     |     |
-//               | GUI |     | SPC |     | ENT | ESC | TAB |
-                        display-name = "Lower";
+// | [ |  7 |  8   |  9  |  ]  |     |     |     |     |      |      |
+// | ; |  4 |  5   |  6  |  =  |     |     | RCTRL | RSHIFT | RALT |     |
+// | ` |  1 |  2   |  3  |  \  |     |     |     |     |      |      |
+//               | GUI | 0 | - |     |     |     |     |
+                        display-name = "Num";
                         bindings = <
-   &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT        &kp CARET &kp AMPS  &kp KP_MULTIPLY &kp LPAR  &kp RPAR
-   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &kp LEFT  &kp DOWN  &kp UP          &kp RIGHT &trans 
-   &bt BT_CLR   &trans       &trans       &trans       &trans           &trans    &trans    &trans          &trans    &trans 
-                             &kp LGUI     &trans       &kp SPACE        AS(RET)   &kp ESC   &kp TAB
+
+   &kp LBKT    &kp N7     &kp N8     &kp N9     &kp RBKT        &none    &none    &none    &none    &none
+   &kp SEMI    &kp N4     &kp N5     &kp N6     &kp EQUAL       &none    &trans   &trans   &trans   &none
+   &kp GRAVE   &kp N1     &kp N2     &kp N3     &kp BSLH        &none    &none    &none    &none    &none
+                          &kp GUI    &kp N0     &kp MINUS       &none    &none    &none
                         >;
                 };
 
-                raise_layer {
+
+                sym_layer {
 // -----------------------------------------------------------------------------------------
-// | 1! |  2@ |  3# |  4$ |  5% |     |  6^ |  7& |  8* |  9(  |  0)  |
-// | -_ |  =+ |  {  |  [  |  (  |     |  )  |  ]  |  }  |  /?  |  \|  |
-// | `~ |     |     |  ,< |  :  |     |  ;  |  .> | CTRL| META |      |
-//            | GUI | ESC | SPC |     | ENT |     | TAB |
-                        display-name = "Raise";
+// |  {  |  &  |  *  |  (  |  }  |     |  |  |  |  |  |
+// |  :  |  $  |  %  |  ^  |  +  |     |  |RCTRL | RSHIFT | RALT |  |
+// |  ~  |  !  |  @  |  #  |  |  |     |  |  |  |  |  |
+//             |  )  |  _  | SPC |     |  |  |  |
+                        display-name = "Sym";
+                        bindings = <
+   &kp LBRC     &kp AMPS    &kp STAR    &kp RPAR    &kp RBRC        &none    &none    &none    &none    &none
+   &kp COLON    &kp DOLLAR  &kp PERCENT &kp CARET   &kp PLUS        &none    &trans   &trans   &trans   &none
+   &kp TILDE    &kp EXCL    &kp AT_SIGN &kp HASH    &kp PIPE        &none    &none    &none    &none    &none     
+                            &kp LGUI    &kp LPAR    &kp UNDERSCORE  &none    &none    &none
+                        >;
+                };
+                move_layer {
+// -----------------------------------------------------------------------------------------
+// |  |  |  |  |  |     |     |     |     |     |    |
+// |  |  |  |  |  |     | LFT | DWN |   UP  |  RGT  |      |
+// |  |  |  |  |  |     | INS | HOME| PG_DN | PG_UP |  END |
+//       |  |  |  |     | ESC | DEL |       |
+                        display-name = "move";
                         bindings = <
 
-   AS(N1)    AS(N2)    AS(N3)    AS(N4)    AS(N5)        AS(N6)    AS(N7)    AS(N8)    AS(N9)   AS(N0)
-   AS(MINUS) AS(EQUAL) &kp LBRC  &kp LBKT  &kp LPAR      &kp RPAR  &kp RBKT  &kp RBRC  AS(FSLH) AS(BSLH)
-   AS(GRAVE) &trans    &trans    AS(COMMA) &kp COLON     &kp SEMI  AS(DOT)   &kp LCTRL &kp RALT &trans
-                       &kp LGUI  &kp ESC   &kp SPACE     AS(RET)   &trans    &kp TAB
+   &none    &none    &none    &none    &none      &none    &none    &none    &none    &none 
+   &none    &trans   &trans   &trans   &none      &kp LEFT &kp DOWN &kp UP    &kp RIGHT &none
+   &none    &none    &none    &none    &none      &kp INS  &kp HOME &kp PG_DN &kp PG_UP &kp END
+                     &none    &none    &none      &kp ESC  &kp DEL  &none
+                        >;
+                };
+                f_key_layer {
+// -----------------------------------------------------------------------------------------
+//  |  |  |  |  |  |             | F9 | F10 | F11 | F12 |  |
+//  |  |RCTRL | RSHIFT | RALT |  | F5 | F6  | F7  | F8  |  |
+//  |  |  |  |  |  |             | F1 | F2  | F3  | F4  |  |
+//        |  |  |  |             |BT_CLR |  |     |
+                        display-name = "f_key";
+                        bindings = <
+
+   &none    &none    &none    &none    &none      &kp F9   &kp F10  &kp F11   &kp F12   &none 
+   &none    &trans   &trans   &trans   &none      &kp F5   &kp F6   &kp F7    &kp F8    &none
+   &none    &none    &none    &none    &none      &kp F1   &kp F2   &kp F3    &kp F4    &none
+                     &none    &none    &none      &bt BT_CLR  &none  &none
                         >;
                 };
 
