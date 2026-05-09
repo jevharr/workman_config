@@ -57,7 +57,7 @@
    AS(Q) AS(D) AS(R) AS(W) AS(B)     AS(J)   AS(F)  AS(U)     AS(P)     AS(SQT)
    AS(A) &mt LALT S &mt LSHIFT H &mt LCTRL T AS(G)     AS(Y)   &mt RCTRL N  &mt RSHIFT E   &mt RALT O     AS(I)
    AS(Z) AS(X) AS(M) AS(C) AS(V)     AS(K)   AS(L)  AS(COMMA) AS(DOT)   AS(FSLH)
-        &mo 4 &lt 3 BSPC &kp TAB     AS(RET) &lt 2 SPACE &mo 1
+        &mo 4 &lt 3 BSPC &mt CLCK TAB     &mt PSCRN RET &lt 2 SPACE &mo 1
                         >;
                 };
 
