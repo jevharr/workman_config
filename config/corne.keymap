@@ -30,7 +30,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "hold-preferred";
-            tapping-term-ms = <200>;
+            tapping-term-ms = <400>;
             bindings = <&kp>, <&kp>;
             display-name = "Mod-Tap";
         };
@@ -43,6 +43,14 @@
             display-name = "Layer-Tap";
         };
     };
+    combos {
+        compatible = "zmk,combos";
+        combo_pscr {
+            timeout-ms = <50>;
+            key-positions =<17 24>;
+            bindings = <&kp PSCRN>;
+        };
+    };
         keymap {
                 compatible = "zmk,keymap";
 
@@ -51,13 +59,13 @@
 // |  Q  |  D  |  R  |  W  |  B  |     |  J  |  F   |  U   |  P   | ' |
 // |  A  | LALT S | LSHIFT H | LCTRL T |  G  |     |  Y  | RCTRL N | RSHIFT E | RALT O | I | 
 // |  Z  |  X  |  M  |  C  |  V  |     |  K  |  L   | ,    | .    | / |
-//      | LYR3 | BSPC LYR4 | TAB |     | ENT | SPACE LYR2 | LYR1 |
+//      | LYR4 | BSPC LYR3 | TAB |     | ENT | SPACE LYR1 | LYR2 |
                         display-name = "Base";
                         bindings = <
    AS(Q) AS(D) AS(R) AS(W) AS(B)     AS(J)   AS(F)  AS(U)     AS(P)     AS(SQT)
-   AS(A) &mt LALT S &mt LSHIFT H &mt LCTRL T AS(G)     AS(Y)   &mt RCTRL N  &mt RSHIFT E   &mt RALT O     AS(I)
+   AS(A) &mt LALT S &mt LSHIFT H &mt LCTRL T AS(G)  AS(Y)   &mt RCTRL N  &mt RSHIFT E   &mt RALT O     AS(I)
    AS(Z) AS(X) AS(M) AS(C) AS(V)     AS(K)   AS(L)  AS(COMMA) AS(DOT)   AS(FSLH)
-        &mo 4 &lt 3 BSPC &mt CLCK TAB     &mt PSCRN RET &lt 2 SPACE &mo 1
+        &mo 4 &lt 3 BSPC &mt CLCK TAB     &kp RET &lt 2 SPACE &mo 1
                         >;
                 };
 
@@ -86,24 +94,24 @@
 //             |  )  |  _  | SPC |     |  |  |  |
                         display-name = "Sym";
                         bindings = <
-   &kp LBRC     &kp AMPS    &kp STAR    &kp RPAR    &kp RBRC        &none    &none    &none    &none    &none
+   &kp LBRC     &kp AMPS    &kp STAR    &kp LPAR    &kp RBRC        &none    &none    &none    &none    &none
    &kp COLON    &kp DOLLAR  &kp PERCENT &kp CARET   &kp PLUS        &none    &trans   &trans   &trans   &none
    &kp TILDE    &kp EXCL    &kp AT_SIGN &kp HASH    &kp PIPE        &none    &none    &none    &none    &none     
-                            &kp LGUI    &kp LPAR    &kp UNDERSCORE  &none    &none    &none
+                            &kp LGUI    &kp RPAR    &kp UNDERSCORE  &none    &none    &none
                         >;
                 };
                 move_layer {
 // -----------------------------------------------------------------------------------------
 // |  |  |  |  |  |     |     |     |     |     |    |
 // |  |  |  |  |  |     | LFT | DWN |   UP  |  RGT  |      |
-// |  |  |  |  |  |     | INS | HOME| PG_DN | PG_UP |  END |
-//       |  |  |  |     | ESC | DEL |       |
+// |  |  |  |  |  |     | PSCR | HOME| PG_DN | PG_UP |  END |
+//       |  |  |  |     | ESC | DEL |   |
                         display-name = "move";
                         bindings = <
 
    &none    &none    &none    &none    &none      &none    &none    &none    &none    &none 
    &none    &trans   &trans   &trans   &none      &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT
-   &none    &none    &none    &none    &none      &kp INS  &kp HOME &kp PG_DN &kp PG_UP &kp END
+   &none    &none    &none    &none    &none      &kp PSCR  &kp HOME &kp PG_DN &kp PG_UP &kp END
                      &none    &none    &none      &kp ESC  &kp DEL  &none
                         >;
                 };
@@ -116,10 +124,10 @@
                         display-name = "f_key";
                         bindings = <
 
-   &none    &none    &none    &none    &none      &kp F9   &kp F10  &kp F11   &kp F12   &none 
-   &none    &trans   &trans   &trans   &none      &kp F5   &kp F6   &kp F7    &kp F8    &none
-   &none    &none    &none    &none    &none      &kp F1   &kp F2   &kp F3    &kp F4    &none
-                     &none    &none    &none      &bt BT_CLR  &none  &none
+   &none    &none    &none    &none    &none      &none   &kp F9   &kp F10   &kp F11   &F12 
+   &none    &trans   &trans   &trans   &none      &none   &kp F5   &kp F6    &kp F7    &F8
+   &none    &none    &none    &none    &none      &none   &kp F1   &kp F2    &kp F3    &F4
+                     &none    &none    &none      &none   &none  &bt BT_CLR
                         >;
                 };
 
