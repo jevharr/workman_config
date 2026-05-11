@@ -110,14 +110,14 @@
 // -----------------------------------------------------------------------------------------
 // |  |  |  |  |  |     |     |     |     |     |    |
 // |  |  |  |  |  |     | LFT | DWN |   UP  |  RGT  |      |
-// |  |  |  |  |  |     | PSCR | HOME| PG_DN | PG_UP |  END |
+// |  |  |  |  |  |     | INS | HOME| PG_DN | PG_UP |  END |
 //       |  |  |  |     | ESC | DEL |   |
                         display-name = "move";
                         bindings = <
 
    &none    &none    &none    &none    &none      &none    &none    &none    &none    &none 
    &none    &trans   &trans   &trans   &none      &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT
-   &none    &none    &none    &none    &none      &kp PSCR  &kp HOME &kp PG_DN &kp PG_UP &kp END
+   &none    &none    &none    &none    &none      &kp INS  &kp HOME &kp PG_DN &kp PG_UP &kp END
                      &none    &none    &none      &kp ESC  &kp DEL  &none
                         >;
                 };
