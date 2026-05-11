@@ -47,13 +47,15 @@
     combos {
         compatible = "zmk,combos";
         combo_pscr {
-            timeout-ms = <75>;
-            key-positions = <17 5>;
+            require-prior-idle-ms = <150>
+            timeout-ms = <150>;
+            key-positions = <1 2>;
             bindings = <&kp PSCRN>;
         };
         combo_caps {
-            timeout-ms = <75>;
-            key-positions = <17 24>;
+            require-prior-idle-ms = <150>
+            timeout-ms = <150>;
+            key-positions = <7 8>;
             bindings = <&kp CAPSLOCK>;
         };
     };
